@@ -1,3 +1,4 @@
+// Game Canvas Setup
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -95,7 +96,7 @@ function playGameOverSound() {
     }
 }
 
-// Initialize audio on load
+
 initAudio();
 
 // Game State
@@ -138,7 +139,7 @@ function loadBackgroundSilently() {
     img.onload = function() {
         backgrounds.current = img;
         console.log('Background loaded silently');
-        // Refresh start screen if not in game
+        
         if (!gameRunning) {
             drawStartScreen();
         }
@@ -167,7 +168,7 @@ function startBackgroundLoading() {
     // Load background
     loadBackgroundSilently();
     
-    // player images
+    // Load player images
     loadImageSilently('assets/player/player_left_step1.png', playerImages, 'leftStep1');
     loadImageSilently('assets/player/player_left_step2.png', playerImages, 'leftStep2');
     loadImageSilently('assets/player/player_right_step1.png', playerImages, 'rightStep1');
@@ -175,7 +176,7 @@ function startBackgroundLoading() {
     loadImageSilently('assets/player/player_jump.png', playerImages, 'jump');
     loadImageSilently('assets/player/player_double_jump.png', playerImages, 'doubleJump');
     
-    // enemy images
+    // Load enemy images
     loadImageSilently('assets/enemies/enemy_walk1.png', enemyImages, 'fly1');
     loadImageSilently('assets/enemies/enemy_walk2.png', enemyImages, 'fly2');
     loadImageSilently('assets/enemies/enemy_attack.png', enemyImages, 'attack');
@@ -188,7 +189,7 @@ function startBackgroundLoading() {
     loadImageSilently('assets/enemies/dino_run1.png', dinoImages, 'run1');
     loadImageSilently('assets/enemies/dino_run2.png', dinoImages, 'run2');
     
-    // obstacle images
+    // Load obstacle images
     loadImageSilently('assets/obstacles/cactus1.png', obstacleImages, 'cactus1');
     loadImageSilently('assets/obstacles/cactus2.png', obstacleImages, 'cactus2');
     loadImageSilently('assets/obstacles/rock1.png', obstacleImages, 'rock1');
@@ -207,7 +208,7 @@ let gameSpeed = 5;
 let frameCount = 0;
 let animationFrame = 0;
 
-
+// Initialize background elements
 function initBackground() {
     // Create stars
     stars = [];
@@ -456,7 +457,7 @@ function drawObstacle(obstacle) {
     ctx.restore();
 }
 
-// Draw Background with seamless fallback
+// Draw Background 
 function drawBackground() {
     if (backgrounds.current && backgrounds.current.complete && backgrounds.current.naturalHeight !== 0) {
         ctx.drawImage(backgrounds.current, 0, 0, canvas.width, canvas.height);
@@ -471,7 +472,7 @@ function drawBackground() {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-       
+        
         stars.forEach(star => {
             ctx.fillStyle = 'rgba(255, 255, 255, ' + star.brightness + ')';
             ctx.fillRect(star.x, star.y, star.size, star.size);
@@ -533,12 +534,12 @@ function drawBackground() {
 function drawCrystal(crystal) {
     ctx.save();
     
-    // Floating movement
+    
     if (!crystal.floatOffset) crystal.floatOffset = Math.random() * Math.PI * 2;
     crystal.floatOffset += 0.02;
     const floatY = Math.sin(crystal.floatOffset) * 3;
     
-    // Pulsation effect for bonus items
+    
     let scale = 1;
     let glowIntensity = 1;
     if (crystal.bonusCrystal) {
@@ -1255,13 +1256,13 @@ function initGame() {
     initBackground();
     drawStartScreen();
     
-   
+    
     startBackgroundLoading();
     
     console.log('Game initialized instantly - loading assets in background');
 }
 
-/
+
 document.addEventListener('keydown', (e) => {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
         e.preventDefault();
