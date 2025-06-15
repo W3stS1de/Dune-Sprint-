@@ -57,7 +57,7 @@ body {
     background: #0a0a0f;
     display: block;
     
-
+    
     width: 900px !important;
     height: 450px !important;
     max-width: none !important;
@@ -184,47 +184,4 @@ body {
 .control-item span {
     color: #00ffcc;
     opacity: 0.8;
-}
-
-
-@media (max-width: 950px) {
-    #gameCanvas {
-        width: 90vw !important;
-        height: calc(90vw * 0.5) !important;
-        max-width: 900px !important;
-    }
-    
-    .game-title {
-        font-size: 2rem;
-    }
-    
-    .controls {
-        gap: 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    #gameCanvas {
-        width: 95vw !important;
-        height: calc(95vw * 0.5) !important;
-        max-width: 900px !important;
-    }
-    
-    .game-title {
-        font-size: 1.5rem;
-    }
-    
-    .game-subtitle {
-        font-size: 1rem;
-    }
-    
-    .game-btn {
-        padding: 15px 30px;
-        font-size: 1.2rem;
-    }
-    
-    .controls {
-        gap: 15px;
-        font-size: 0.8rem;
-    }
 }
