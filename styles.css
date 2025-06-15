@@ -49,7 +49,7 @@ body {
     display: inline-block;
 }
 
-/* ИСПРАВЛЕНО: Добавлен фиксированный размер canvas */
+
 #gameCanvas {
     border: 3px solid #00ffcc;
     border-radius: 10px;
@@ -57,7 +57,7 @@ body {
     background: #0a0a0f;
     display: block;
     
-    /* ФИКСИРОВАННЫЙ РАЗМЕР - ГЛАВНОЕ ИСПРАВЛЕНИЕ */
+
     width: 900px !important;
     height: 450px !important;
     max-width: none !important;
@@ -186,7 +186,7 @@ body {
     opacity: 0.8;
 }
 
-/* ДОБАВЛЕНО: Адаптивные правила для мобильных устройств */
+
 @media (max-width: 950px) {
     #gameCanvas {
         width: 90vw !important;
