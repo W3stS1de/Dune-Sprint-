@@ -1,16 +1,17 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// UI Elements
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
 const scoreEl = document.getElementById('score');
 const crystalsEl = document.getElementById('crystals');
 const highScoreEl = document.getElementById('highScore');
 
- 
+
 let gameInitialized = false;
 
-// audio 
+
 let audioEnabled = false;
 
 function initAudio() {
@@ -28,6 +29,7 @@ function initAudio() {
         window.gameOverSound = new Audio();
         window.gameOverSound.volume = 0.6;
         
+        // Audio 
         window.backgroundMusic.src = 'assets/audio/background_music.mp3';
         window.jumpSound.src = 'assets/audio/jump_sound.mp3';
         window.crystalSound.src = 'assets/audio/crystal_sound.mp3';
@@ -47,7 +49,7 @@ function initAudio() {
     }
 }
 
-// Sound functions
+
 function playBackgroundMusic() {
     if (audioEnabled && window.backgroundMusic) {
         window.backgroundMusic.currentTime = 0;
@@ -93,7 +95,7 @@ function playGameOverSound() {
     }
 }
 
-
+// Initialize audio on load
 initAudio();
 
 // Game State
@@ -136,7 +138,7 @@ function loadBackgroundSilently() {
     img.onload = function() {
         backgrounds.current = img;
         console.log('Background loaded silently');
-        
+        // Refresh start screen if not in game
         if (!gameRunning) {
             drawStartScreen();
         }
@@ -162,10 +164,10 @@ function loadImageSilently(src, targetObject, propertyName) {
 
 
 function startBackgroundLoading() {
-    
+    // Load background
     loadBackgroundSilently();
     
-    // Load player images
+    // player images
     loadImageSilently('assets/player/player_left_step1.png', playerImages, 'leftStep1');
     loadImageSilently('assets/player/player_left_step2.png', playerImages, 'leftStep2');
     loadImageSilently('assets/player/player_right_step1.png', playerImages, 'rightStep1');
@@ -173,7 +175,7 @@ function startBackgroundLoading() {
     loadImageSilently('assets/player/player_jump.png', playerImages, 'jump');
     loadImageSilently('assets/player/player_double_jump.png', playerImages, 'doubleJump');
     
-    // Load enemy images
+    // enemy images
     loadImageSilently('assets/enemies/enemy_walk1.png', enemyImages, 'fly1');
     loadImageSilently('assets/enemies/enemy_walk2.png', enemyImages, 'fly2');
     loadImageSilently('assets/enemies/enemy_attack.png', enemyImages, 'attack');
@@ -186,7 +188,7 @@ function startBackgroundLoading() {
     loadImageSilently('assets/enemies/dino_run1.png', dinoImages, 'run1');
     loadImageSilently('assets/enemies/dino_run2.png', dinoImages, 'run2');
     
-    // Load obstacle images
+    // obstacle images
     loadImageSilently('assets/obstacles/cactus1.png', obstacleImages, 'cactus1');
     loadImageSilently('assets/obstacles/cactus2.png', obstacleImages, 'cactus2');
     loadImageSilently('assets/obstacles/rock1.png', obstacleImages, 'rock1');
@@ -205,9 +207,9 @@ let gameSpeed = 5;
 let frameCount = 0;
 let animationFrame = 0;
 
-// background elements
+
 function initBackground() {
-    
+    // Create stars
     stars = [];
     for (let i = 0; i < 100; i++) {
         stars.push({
@@ -218,7 +220,7 @@ function initBackground() {
         });
     }
 
-    
+    // Create clouds
     clouds = [];
     for (let i = 0; i < 5; i++) {
         clouds.push({
@@ -260,23 +262,23 @@ class Particle {
     }
 }
 
-
+// Draw Player with smooth fallback
 function drawPlayer() {
     const currentImage = getPlayerImage();
     
     if (currentImage && currentImage.complete && currentImage.naturalHeight !== 0) {
         ctx.drawImage(currentImage, player.x, player.y, player.width, player.height);
     } else {
-        
+        // Always ready fallback
         ctx.fillStyle = '#00ff88';
         ctx.fillRect(player.x, player.y, player.width, player.height);
         
-        
+        // Eyes
         ctx.fillStyle = 'white';
         ctx.fillRect(player.x + 15, player.y + 15, 12, 12);
         ctx.fillRect(player.x + 50, player.y + 15, 12, 12);
         
-        
+        // Mouth
         ctx.fillRect(player.x + 20, player.y + 45, 30, 8);
     }
 }
@@ -454,7 +456,7 @@ function drawObstacle(obstacle) {
     ctx.restore();
 }
 
-// Draw Background 
+// Draw Background with seamless fallback
 function drawBackground() {
     if (backgrounds.current && backgrounds.current.complete && backgrounds.current.naturalHeight !== 0) {
         ctx.drawImage(backgrounds.current, 0, 0, canvas.width, canvas.height);
@@ -469,7 +471,7 @@ function drawBackground() {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        
+       
         stars.forEach(star => {
             ctx.fillStyle = 'rgba(255, 255, 255, ' + star.brightness + ')';
             ctx.fillRect(star.x, star.y, star.size, star.size);
@@ -536,7 +538,7 @@ function drawCrystal(crystal) {
     crystal.floatOffset += 0.02;
     const floatY = Math.sin(crystal.floatOffset) * 3;
     
-    // Pulsation effect 
+    // Pulsation effect for bonus items
     let scale = 1;
     let glowIntensity = 1;
     if (crystal.bonusCrystal) {
@@ -554,7 +556,7 @@ function drawCrystal(crystal) {
     const mainColor = crystal.bonusCrystal ? '#ffff00' : '#00ffcc';
     const shadowColor = crystal.bonusCrystal ? '#ffd700' : '#00aaaa';
     
-    
+    // Draw beautiful IRYS text
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     
@@ -741,7 +743,7 @@ function createObstacle() {
     obstacles.push(obstacle);
 }
 
-
+// Create Crystal
 function createCrystal() {
     let attempts = 0;
     let validPosition = false;
@@ -797,7 +799,7 @@ function createBirdCrystal(birdObstacle, birdType) {
     crystals.push(crystal);
 }
 
-
+// Update Obstacles
 function updateObstacles() {
     obstacles = obstacles.filter(obstacle => {
         obstacle.x -= gameSpeed;
@@ -829,7 +831,7 @@ function updateObstacles() {
     });
 }
 
-
+// Update Crystals
 function updateCrystals() {
     crystals = crystals.filter(crystal => {
         crystal.x -= gameSpeed;
@@ -1192,6 +1194,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+
 function drawStartScreen() {
     if (backgrounds.current && backgrounds.current.complete && backgrounds.current.naturalHeight !== 0) {
         ctx.drawImage(backgrounds.current, 0, 0, canvas.width, canvas.height);
@@ -1243,6 +1246,7 @@ function drawStartScreen() {
     ctx.restore();
 }
 
+
 function initGame() {
     gameRunning = false;
     gameOver = false;
@@ -1251,13 +1255,13 @@ function initGame() {
     initBackground();
     drawStartScreen();
     
-    
+   
     startBackgroundLoading();
     
     console.log('Game initialized instantly - loading assets in background');
 }
 
-
+/
 document.addEventListener('keydown', (e) => {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
         e.preventDefault();
