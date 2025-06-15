@@ -1,32 +1,5 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-(function() {
-    'use strict';
-    
-    function netlifyCanvasFix() {
-        const canvas = document.getElementById('gameCanvas');
-        if (canvas) {
-            
-            canvas.style.width = '900px';
-            canvas.style.height = '450px';
-            canvas.width = 900;
-            canvas.height = 450;
-            
-            
-            canvas.style.transform = 'none';
-            canvas.style.zoom = '1';
-            canvas.style.scale = '1';
-            
-            console.log('Netlify canvas fix applied');
-        }
-    }
-    
-    
-    netlifyCanvasFix();
-    
-    
-    setInterval(netlifyCanvasFix, 1000);
-})();
 
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
