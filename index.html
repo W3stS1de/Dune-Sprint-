@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dune Sprint</title>
     
+    <!-- Preload критически важных изображений -->
+    <link rel="preload" href="assets/backgrounds/background1.png" as="image">
+    <link rel="preload" href="assets/backgrounds/menu_background.png" as="image">
+    <link rel="preload" href="assets/player/player_jump.png" as="image">
+    <link rel="preload" href="assets/player/player_left_step1.png" as="image">
+    
     <style>
         body {
             margin: 0;
             padding: 0;
+            /* Используем menu_background.png как фон страницы */
             background-image: url('assets/backgrounds/menu_background.png');
             background-size: cover;
             background-position: center;
@@ -19,9 +26,10 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: auto;
+            overflow: hidden;
         }
         
+        /* Затемнение для лучшей читаемости */
         body::before {
             content: '';
             position: fixed;
@@ -77,7 +85,6 @@
             margin-bottom: 20px;
         }
         
-        /* ПРОСТАЯ И ЭФФЕКТИВНАЯ ФИКСАЦИЯ CANVAS */
         #gameCanvas {
             border: 3px solid #00ffcc;
             background: #0a0a0f;
@@ -118,6 +125,7 @@
             text-shadow: 0 0 5px #00ffcc;
         }
         
+        /* КРАСИВЫЕ КНОПКИ С ЭФФЕКТАМИ */
         .game-btn {
             background: linear-gradient(45deg, #00ffcc, #00aaaa);
             color: #1a1a2e;
@@ -153,6 +161,7 @@
             transform: translateX(-50%) translateY(0);
         }
         
+        /* Позиционирование кнопок в центре canvas */
         #startBtn {
             top: 50%;
             margin-top: -25px;
@@ -196,6 +205,51 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
+        /* Адаптивность */
+        @media (max-width: 1000px) {
+            #gameCanvas {
+                width: 90vw;
+                height: auto;
+            }
+            
+            .game-title {
+                font-size: 2em;
+            }
+            
+            .score-panel {
+                gap: 20px;
+            }
+            
+            .controls {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .game-title {
+                font-size: 1.5em;
+            }
+            
+            .game-subtitle {
+                font-size: 1em;
+            }
+            
+            .game-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+            
+            .score-panel {
+                gap: 10px;
+            }
+            
+            .score, .crystals, .high-score {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+        
+        /* Анимации */
         .game-title {
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -235,6 +289,7 @@
             }
         }
         
+        /* Эффект частиц */
         .bg-particle {
             position: absolute;
             background: #00ffcc;
@@ -265,6 +320,7 @@
         <div class="game-wrapper">
             <canvas id="gameCanvas" width="900" height="450"></canvas>
             
+            <!-- Кнопки теперь позиционируются абсолютно над canvas -->
             <button id="startBtn" class="game-btn">
                 Start Game
             </button>
@@ -294,30 +350,9 @@
         </div>
     </div>
     
+    <!-- Фоновые частицы -->
     <script>
-        // ПРОСТОЕ И ЭФФЕКТИВНОЕ ИСПРАВЛЕНИЕ РАЗМЕРА CANVAS
-        function setCanvasSize() {
-            const canvas = document.getElementById('gameCanvas');
-            if (canvas) {
-                // Устанавливаем размер отображения
-                canvas.style.width = '900px';
-                canvas.style.height = '450px';
-                
-                // Устанавливаем внутреннее разрешение
-                canvas.width = 900;
-                canvas.height = 450;
-                
-                console.log('Canvas size set to 900x450');
-            }
-        }
-        
-        // Устанавливаем размер сразу
-        setCanvasSize();
-        
-        // Устанавливаем при загрузке страницы
-        document.addEventListener('DOMContentLoaded', setCanvasSize);
-        window.addEventListener('load', setCanvasSize);
-        
+        // Создаем фоновые частицы для дополнительного эффекта
         function createBackgroundParticles() {
             for (let i = 0; i < 15; i++) {
                 const particle = document.createElement('div');
@@ -332,6 +367,7 @@
             }
         }
         
+        // Создаем частицы при загрузке
         window.addEventListener('load', createBackgroundParticles);
     </script>
     
