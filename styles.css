@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('assets/backgrounds/menu_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.game-container {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.game-title {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+    animation: glow 2s ease-in-out infinite alternate;
+    font-weight: bold;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; }
+    to { text-shadow: 0 0 30px #00ffcc, 0 0 50px #00ffcc, 0 0 60px #00ffcc; }
+}
+
+.game-subtitle {
+    font-size: 1.2rem;
+    color: #00ffcc;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.game-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#gameCanvas {
+    border: 3px solid #00ffcc;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+    background: #0a0a0f;
+    display: block;
+}
+
+.background-preview {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: 80px;
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    z-index: 10;
+}
+
+.background-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.background-preview:hover img {
+    opacity: 1;
+}
+
+.background-preview::after {
+    content: 'Background';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #00ffcc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.game-ui {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+}
+
+.score-panel {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #00ffcc;
+    font-size: 1rem;
+}
+
+.score-panel > div {
+    margin: 5px 0;
+}
+
+.score {
+    color: #ffff00;
+}
+
+.crystals {
+    color: #00ffcc;
+}
+
+.high-score {
+    color: #ff6b6b;
+}
+
+.game-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #00ffcc 0%, #0099cc 100%);
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 255, 204, 0.5);
+    font-weight: bold;
+}
+
+.game-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.7);
+}
+
+.game-btn:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.controls {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 0.9rem;
+}
+
+.control-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-item kbd {
+    background: rgba(0, 255, 204, 0.2);
+    border: 2px solid #00ffcc;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0, 255, 204, 0.3);
+}
+
+.control-item span {
+    color: #00ffcc;
+    opacity: 0.8;
+}
